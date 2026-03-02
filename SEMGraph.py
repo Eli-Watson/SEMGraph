@@ -27,7 +27,7 @@ from colorama import Fore, init
 init(autoreset=True)
 
 class CLI(cmd.Cmd):
-    #These are the graphs avalibe to be used, by both graph_and graph select.
+    #These are the graphs avalable to be used, by both graph_and graph select.
     ENGINE_AGNOSTIC_GRAPHS = ["Map","Speed-Dist",]
     ICE_GRAPHS = ["Map-Flow","Flow-Dist","Acel-Speed-Dotplot","CorrFlow-Dist",]
     BE_GRAPHS = ["Joule-Dist","Joule-map","Current-Dist",]
@@ -202,6 +202,17 @@ class CLI(cmd.Cmd):
         else:
             print("Quit cancelled")
 
+    def do_list_graphs(self, line):
+        """List all avalibel Graphs"""
+        print(Fore.RED + "Avalible Graphs")
+        print("")
+        print("ENGINE AGNOSTIC GRAPHS:")
+        print(self.ENGINE_AGNOSTIC_GRAPHS )
+        print("BATTERY ElECTRIC GRAPHS:")
+        print(self.BE_GRAPHS)
+        print("INTERNAL COMBUSTION GRAPHS:")
+        print(self.ICE_GRAPHS)
+
     def do_graph_select(self, line):
         """Generate a specific graph from a filtered list of options."""
         print("Generating Graph...")
@@ -250,7 +261,7 @@ class CLI(cmd.Cmd):
         graph_type = inquirer.prompt(questions)["type"]
     
         self.generate_graph(df, graph_type)
-        
+    
     def do_graph(self, line):
         """Generate standard graphs from the telemetry data."""
         print("Generating Standard Graph Set.")
